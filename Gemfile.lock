@@ -17,6 +17,7 @@ GEM
     rspec-mocks (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
+    trollop (1.16.2)
 
 PLATFORMS
   ruby
@@ -24,3 +25,4 @@ PLATFORMS
 DEPENDENCIES
   dexter!
   rspec
+  trollop

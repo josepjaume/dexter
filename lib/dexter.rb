@@ -1,26 +1,34 @@
+require 'fileutils'
+
 module Dexter
+
+  def self.organize_all!(path)
+    self.load_from_directory(path) do |file|
+      file.organize!(path)
+    end
+  end
+
+  def self.load_from_directory(path)
+    self.load_files self.list_all_files_within_directory(path)
+  end
+
   def self.load_files(files)
-    files.collect do |file|
+    result = []
+    files.each do |file|
       matchers.each do |matcher|
-        matcher.new(file) if matcher.allowed?(file)
+         result << matcher.new(file) if matcher.allowed?(file)
       end
-    end.compact
+    end
+    return result.compact
   end
 
   def self.matchers
-    [Matchers::Video, Matchers::Subtitle]
+    [Matchers::Video]
   end
 
-  module FileUtils
-    def self.extension(filename)
-      filename =~ /.+\.([0-9A-z].+)$/
-      $1
-    end
-
-    def self.list_all_files_within_directory(path)
-      expression = "#{path}/**/*.{#{Dexter.matchers.collect{|m| m::EXTENSIONS}.flatten.join(',')}}"
-      Dir.glob(expression)
-    end
+  def self.list_all_files_within_directory(path)
+    expression = "#{path}/**/*.{#{Dexter.matchers.collect{|m| m::EXTENSIONS}.flatten.join(',')}}"
+    Dir.glob(expression)
   end
 
   class AbstractMatcher
@@ -28,7 +36,7 @@ module Dexter
     EXTENSIONS = []
 
     def self.allowed?(filename) 
-      self::EXTENSIONS.include? FileUtils.extension(filename)
+      self::EXTENSIONS.include? File.extname(filename).gsub(/^\./,"")
     end
 
     def initialize(filename)
@@ -41,7 +49,7 @@ module Dexter
     end
     
     def extension
-      FileUtils.extension(@filename)
+      File.extname(@filename).gsub(/^\./,"")
     end
   end
 
@@ -49,6 +57,14 @@ module Dexter
     class Video < AbstractMatcher
 
       EXTENSIONS = ['avi', 'mkv']
+
+      def self.output_format
+        @output ||= ':path/:name/S:season/:name S:seasonE:episode.:extension'
+      end
+      
+      def self.output_format=(options)
+        @output ||= options
+      end
 
       def name
         filename.downcase =~ /([0-9A-z\s\.]+)\s?\.?-?\s?\.?(s[0-9]+e[0-9]+|[0-9]+x[0-9]+).*/
@@ -74,9 +90,25 @@ module Dexter
         $1.to_i
       end
 
-    end
-    class Subtitle < Video
-      EXTENSIONS = ['sub', 'srt']
+      def output(path)
+        options = {
+          :season => season.to_s.rjust(2,'0'),
+          :episode => episode.to_s.rjust(2,'0'),
+          :name => name,
+          :path => path,
+          :extension => extension
+        }
+        options.inject(self.class.output_format){ |output, object|
+          output = (output.gsub(":#{object[0]}", object[1]) || output)
+        }
+      end
+
+      def organize!(path)
+        output_path = File.dirname(output(path))
+        FileUtils.mkdir_p(output_path)
+        File.move(@filename, output(path))
+      end
+
     end
   end
 end
