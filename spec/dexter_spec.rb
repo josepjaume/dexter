@@ -11,7 +11,6 @@ describe Dexter do
         "the.big.bang.theory.1x12.srt"
       ]
       Dexter::Matchers::Video.should_receive(:new).exactly(2).times
-      Dexter::Matchers::Subtitle.should_receive(:new).exactly(2).times
       subject.load_files(list)
     end
   end

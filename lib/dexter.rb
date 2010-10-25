@@ -3,7 +3,7 @@ require 'fileutils'
 module Dexter
 
   def self.organize_all!(path)
-    self.load_from_directory(path) do |file|
+    self.load_from_directory(path).each do |file|
       file.organize!(path)
     end
   end

@@ -15,7 +15,10 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "dexter"
 
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'trollop'
+  s.add_development_dependency 'cucumber'
+  s.add_development_dependency 'aruba'
+
+  s.add_runtime_dependency 'trollop'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
