@@ -9,4 +9,5 @@ Feature: Dexter organises series
     And an empty file named "Downloads/dexter s01e09.avi"
     When I run "dexter Downloads Video"
     Then the following directories should exist:
+      |Video/Dexter/S01|
 

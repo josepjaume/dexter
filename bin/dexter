@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
+
+require 'trollop'
+require 'dexter'
+
+opts = Trollop::options do
+  opt :input_dir, "./"
+  opt :output_dir, "./"
+end
+
+Dexter.organize_all!(".")

@@ -3,7 +3,9 @@ require 'fileutils'
 module Dexter
 
   def self.organize_all!(path)
+    puts "Loading from directory: #{File.expand_path(path)}"
     self.load_from_directory(path).each do |file|
+      puts "Organizing #{file.filename}"
       file.organize!(path)
     end
   end
@@ -50,6 +52,10 @@ module Dexter
     
     def extension
       File.extname(@filename).gsub(/^\./,"")
+    end
+
+    def filename
+      @filename
     end
   end
 
@@ -106,7 +112,7 @@ module Dexter
       def organize!(path)
         output_path = File.dirname(output(path))
         FileUtils.mkdir_p(output_path)
-        File.move(@filename, output(path))
+        FileUtils.mv(@filename, output(path))
       end
 
     end
