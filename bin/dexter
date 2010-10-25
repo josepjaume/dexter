@@ -8,6 +8,8 @@ require 'dexter'
 opts = Trollop::options do
   opt :input, "Input directory", :default => "."
   opt :output, "Output directory", :default => "."
+  opt :format, "Output directory format"
 end
 
 Dexter.organize_all!(opts[:input],opts[:output])
+Dexter::Matchers::Video.format = opts[:format] if opts[:format]
