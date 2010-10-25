@@ -2,11 +2,9 @@ require 'fileutils'
 
 module Dexter
 
-  def self.organize_all!(path)
-    puts "Loading from directory: #{File.expand_path(path)}"
-    self.load_from_directory(path).each do |file|
-      puts "Organizing #{file.filename}"
-      file.organize!(path)
+  def self.organize_all!(input_path, output_path)
+    self.load_from_directory(input_path).each do |file|
+      file.organize!(output_path)
     end
   end
 
@@ -84,7 +82,7 @@ module Dexter
 
       def season
         filename.downcase =~ /[\s\.]?s([0-9]{2})e[0-9]{2}/
-        filename.downcase =~ /([\s\.]?[0-9])+x[0-9]+/ if $1.nil?
+        filename.downcase =~ /[\s\.]?([0-9]+)x[0-9]+/ if $1.nil?
         return nil if $1.nil?
         $1.to_i
       end

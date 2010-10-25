@@ -23,7 +23,7 @@ describe Dexter do
       }
       Dexter.should_receive(:load_from_directory)\
         .and_return(videos)
-      Dexter.organize_all!('./')
+      Dexter.organize_all!('./', './')
     end
   end
 

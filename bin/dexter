@@ -6,8 +6,8 @@ require 'trollop'
 require 'dexter'
 
 opts = Trollop::options do
-  opt :input_dir, "./"
-  opt :output_dir, "./"
+  opt :input, "Input directory", :default => "."
+  opt :output, "Output directory", :default => "."
 end
 
-Dexter.organize_all!(".")
+Dexter.organize_all!(opts[:input],opts[:output])
