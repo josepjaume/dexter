@@ -119,7 +119,7 @@ describe Dexter do
           video.stub(:output).and_return('./Modern Family/S01/Modern Family S01E02.avi')
           video.stub(:filename).and_return('foo.avi')
           FileUtils.should_receive(:mkdir_p).with('./Modern Family/S01')
-          File.should_receive(:move).with('foo.avi','./Modern Family/S01/Modern Family S01E02.avi')
+          FileUtils.should_receive(:mv).with('foo.avi','./Modern Family/S01/Modern Family S01E02.avi')
           video.organize!('./')
         end
       end
