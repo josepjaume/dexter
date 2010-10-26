@@ -66,6 +66,14 @@ module Dexter
         @output ||= ':path/:name/S:season/:name S:seasonE:episode.:extension'
       end
       
+      def self.allowed?(filename) 
+        if !super(filename)
+          return false
+        end
+        filename =~ /([0-9A-z\s\.]+)\s?\.?-?\s?\.?(s[0-9]+e[0-9]+|[0-9]+x[0-9]+).*/
+        return !!$1
+      end
+
       def self.output_format=(options)
         @output ||= options
       end
@@ -103,6 +111,7 @@ module Dexter
           :extension => extension
         }
         options.inject(self.class.output_format){ |output, object|
+          puts object.inspect
           output = (output.gsub(":#{object[0]}", object[1]) || output)
         }
       end
