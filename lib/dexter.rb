@@ -111,7 +111,6 @@ module Dexter
           :extension => extension
         }
         options.inject(self.class.output_format){ |output, object|
-          puts object.inspect
           output = (output.gsub(":#{object[0]}", object[1]) || output)
         }
       end
