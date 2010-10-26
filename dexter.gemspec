@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = "josepjaume@gmail.com" 
   s.homepage    = "http://rubygems.org/gems/dexter"
   s.summary     = %q{Dexter helps you organize your tv series with well, you know... Dexterity}
-  s.description = %q{TODO: Write a gem description}
+  s.description = %q{Dexter helps you organize your tv series with well, you know... Dexterity}
 
   s.rubyforge_project = "dexter"
 

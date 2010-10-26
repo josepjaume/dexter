@@ -1,4 +1,5 @@
 Feature: Dexter organises series
+
   In order to order my TV series in a clean and neat manner
   As a great series freak
   Dexter should be able to get its name and season & episode numbers and move them to its appropiate paths
@@ -14,7 +15,7 @@ Feature: Dexter organises series
     And an empty file named "Downloads/mess/MY NAME IS EARL - s08e04 HDTV.avi"
     When I run "../../bin/dexter --input Downloads --output Video"
     Then the following directories should exist:
-      |Video/Dexter/S01                 |
-      |Video/The Big Bang Theory/S01    |
-      |Video/Fringe/S01                 |
-      |Video/My Name Is Earl/S08        |
+      | Video/Dexter/S01                 |
+      | Video/The Big Bang Theory/S01    |
+      | Video/Fringe/S01                 |
+      | Video/My Name Is Earl/S08        |
