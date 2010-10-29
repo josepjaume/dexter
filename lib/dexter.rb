@@ -130,8 +130,9 @@ module Dexter
 
       def organize!(path)
         output_path = File.dirname(output(path))
+        output_file = output(path)
         FileUtils.mkdir_p(output_path)
-        FileUtils.mv(@filename, output(path))
+        FileUtils.mv(@filename, output_file) unless File.expand_path(@filename) == File.expand_path(output(path))
         return output(path)
       end
 

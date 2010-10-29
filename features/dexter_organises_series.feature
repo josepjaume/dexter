@@ -15,6 +15,16 @@ Feature: Dexter organises series
       | Video/Dexter/S01                 |
 
   @announce
+  Scenario: Dexter tries to move a file that's already organized 
+    Given a directory named "Dexter/S01"
+    And an empty file named "Dexter/Dexter S01E01.avi"
+    When I run "dexter"
+    Then the following directories should exist:
+      | Dexter/S01                 |
+    And the following files should exist:
+      | Dexter/S01/Dexter S01E01.avi |
+
+  @announce
   Scenario: Dexter organises using a custom format 
     Given a directory named "Downloads"
     And a directory named "Downloads/mess"
