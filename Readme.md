@@ -21,6 +21,6 @@ Checks all the directories and subdirectories in <input> and creates a folder st
 
 Moves the files using the format specified.
 
-    $ dexter --verbose no
+    $ dexter --verbose false
 
 Removes all output
