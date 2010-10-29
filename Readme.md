@@ -24,3 +24,15 @@ Moves the files using the format specified.
     $ dexter --verbose false
 
 Removes all output
+
+## Running the tests - development only
+
+Dexter is tested with RSpec and cucumber.
+
+  $ bundle exec rspec spec
+
+Runs the functional tests
+
+  $ bundle exec cucumber features
+  
+Runs the integration tests
