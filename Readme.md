@@ -29,10 +29,10 @@ Removes all output
 
 Dexter is tested with RSpec and cucumber.
 
-  $ bundle exec rspec spec
+    $ bundle exec rspec spec
 
 Runs the functional tests
 
-  $ bundle exec cucumber features
+    $ bundle exec cucumber features
   
 Runs the integration tests
