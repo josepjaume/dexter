@@ -19,10 +19,17 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     diff-lcs (1.1.2)
+    gemcutter (0.6.1)
     gherkin (2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
+    git (1.2.5)
+    jeweler (1.4.0)
+      gemcutter (>= 0.1.0)
+      git (>= 1.2.5)
+      rubyforge (>= 2.0.0)
     json (1.4.6)
+    json_pure (1.4.6)
     rspec (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
@@ -33,6 +40,8 @@ GEM
     rspec-mocks (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
+    rubyforge (2.0.4)
+      json_pure (>= 1.1.7)
     term-ansicolor (1.0.5)
     trollop (1.16.2)
 
@@ -43,5 +52,6 @@ DEPENDENCIES
   aruba
   cucumber
   dexter!
+  jeweler
   rspec
   trollop

@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = "Josep Jaume Rey Peroy"
   s.email       = "josepjaume@gmail.com" 
-  s.homepage    = "http://rubygems.org/gems/dexter"
+  s.homepage    = "http://github.com/josepjaume/dexter"
   s.summary     = %q{Dexter helps you organize your tv series with well, you know... Dexterity}
   s.description = %q{Dexter helps you organize your tv series with well, you know... Dexterity}
 
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'cucumber'
   s.add_development_dependency 'aruba'
+  s.add_development_dependency 'jeweler'
 
   s.add_runtime_dependency 'trollop'
 
