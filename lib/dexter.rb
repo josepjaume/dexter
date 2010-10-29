@@ -2,10 +2,22 @@ require 'fileutils'
 
 module Dexter
 
-  def self.organize_all!(input_path, output_path)
-    self.load_from_directory(input_path).each do |file|
-      file.organize!(output_path)
+  def self.verbose; @verbose; end
+  def self.verbose=(level);@verbose=level;end
+
+  def self.organize!(input_path, output_path)
+
+    if File.file?(input_path)
+      files = self.load_files([input_path])
+    else
+      files = self.load_from_directory(input_path)
     end
+
+    files.each do |file|
+      output_file = file.organize!(output_path)
+      puts "Organizing: \"#{file.filename}\" ~> \"#{output_file}\"" if Dexter.verbose
+    end
+
   end
 
   def self.load_from_directory(path)
@@ -31,33 +43,34 @@ module Dexter
     Dir.glob(expression)
   end
 
-  class AbstractMatcher
-
-    EXTENSIONS = []
-
-    def self.allowed?(filename) 
-      self::EXTENSIONS.include? File.extname(filename).gsub(/^\./,"")
-    end
-
-    def initialize(filename)
-      raise "Not an allowed format!" unless self.class.allowed?(filename)
-      @filename = filename
-    end
-
-    def organize!
-      raise "It's up to the subclass to implement this"
-    end
-    
-    def extension
-      File.extname(@filename).gsub(/^\./,"")
-    end
-
-    def filename
-      @filename
-    end
-  end
 
   module Matchers
+    class AbstractMatcher
+
+      EXTENSIONS = []
+
+      def self.allowed?(filename) 
+        self::EXTENSIONS.include? File.extname(filename).gsub(/^\./,"")
+      end
+
+      def initialize(filename)
+        raise "Not an allowed format!" unless self.class.allowed?(filename)
+        @filename = filename
+      end
+
+      def organize!
+        raise "It's up to the subclass to implement this"
+      end
+      
+      def extension
+        File.extname(@filename).gsub(/^\./,"")
+      end
+
+      def filename
+        @filename
+      end
+    end
+
     class Video < AbstractMatcher
 
       EXTENSIONS = ['avi', 'mkv']
@@ -111,6 +124,7 @@ module Dexter
         output_path = File.dirname(output(path))
         FileUtils.mkdir_p(output_path)
         FileUtils.mv(@filename, output(path))
+        return output(path)
       end
 
     end

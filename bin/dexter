@@ -1,16 +1,16 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
-
 require 'trollop'
 require 'dexter'
 
 opts = Trollop::options do
   opt :input, "Input directory", :default => "."
   opt :output, "Output directory", :default => "."
-  opt :format, "Output directory format"
+  opt :format, "Output directory format", :default => Dexter::Matchers::Video.output_format
+  opt :verbose, "Be verbose about what dexter is doing", :default => true
 end
 
-Dexter::Matchers::Video.format = opts[:format] if opts[:format]
+Dexter::Matchers::Video.output_format = opts[:format]
+Dexter.verbose = opts[:verbose]
 
-Dexter.organize_all!(opts[:input],opts[:output])
+Dexter.organize!(opts[:input],opts[:output])

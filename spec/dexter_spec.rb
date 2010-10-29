@@ -15,7 +15,7 @@ describe Dexter do
     end
   end
 
-  describe 'self.organize_all!' do
+  describe 'self.organize!' do
     it "organizes all the files within a directory and subdirectories" do
       videos = (1..3).collect{Dexter::Matchers::Video.new('foo.avi')}
       videos.each { |video|
@@ -23,7 +23,7 @@ describe Dexter do
       }
       Dexter.should_receive(:load_from_directory)\
         .and_return(videos)
-      Dexter.organize_all!('./', './')
+      Dexter.organize!('./', './')
     end
   end
 
