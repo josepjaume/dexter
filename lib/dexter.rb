@@ -76,7 +76,7 @@ module Dexter
       EXTENSIONS = ['avi', 'mkv']
 
       def self.output_format
-        @output ||= ':path/:name/S:season/:name S:seasonE:episode.:extension'
+        @output ||= ':name/S:season/:name S:seasonE:episode.:extension'
       end
       
       def self.allowed?(filename) 
@@ -88,7 +88,7 @@ module Dexter
       end
 
       def self.output_format=(options)
-        @output ||= options
+        @output = options
       end
 
       def name
@@ -123,7 +123,7 @@ module Dexter
           :path => path,
           :extension => extension
         }
-        options.inject(self.class.output_format){ |output, object|
+        options.inject(':path/' + self.class.output_format){ |output, object|
           output = (output.gsub(":#{object[0]}", object[1]) || output)
         }
       end

@@ -13,6 +13,27 @@ Feature: Dexter organises series
     When I run "dexter --input \"Downloads/dexter s01e09.avi\" --output Video"
     Then the following directories should exist:
       | Video/Dexter/S01                 |
+
+  @announce
+  Scenario: Dexter organises using a custom format 
+    Given a directory named "Downloads"
+    And a directory named "Downloads/mess"
+    And a directory named "Video"
+    And an empty file named "Downloads/dexter s01e09.avi"
+    When I run "dexter --input \"Downloads/dexter s01e09.avi\" --output Video --format \":name (Season :season)/:name S:seasonE:episode.:extension\""
+    Then the following directories should exist:
+      | Video/Dexter (Season 01)                 |
+
+  @announce
+  Scenario: Dexter isn't verbose
+    Given a directory named "Downloads"
+    And a directory named "Downloads/mess"
+    And a directory named "Video"
+    And an empty file named "Downloads/dexter s01e09.avi"
+    When I run "dexter --input \"Downloads/dexter s01e09.avi\" --output Video --verbose false"
+    Then the following directories should exist:
+      | Video/Dexter/S01                 |
+    And the output should contain exactly ""
       
   @announce
   Scenario: Dexter organizes a whole directory 

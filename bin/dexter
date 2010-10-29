@@ -12,5 +12,4 @@ end
 
 Dexter::Matchers::Video.output_format = opts[:format]
 Dexter.verbose = opts[:verbose]
-
 Dexter.organize!(opts[:input],opts[:output])

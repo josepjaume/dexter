@@ -17,13 +17,16 @@ describe Dexter do
 
   describe 'self.organize!' do
     it "organizes all the files within a directory and subdirectories" do
-      videos = (1..3).collect{Dexter::Matchers::Video.new('foo.avi')}
+      videos = (1..3).collect{Dexter::Matchers::Video.new('dexter s01e01.avi')}
       videos.each { |video|
         video.should_receive(:organize!).exactly(1).times
       }
       Dexter.should_receive(:load_from_directory)\
         .and_return(videos)
-      Dexter.organize!('./', './')
+
+      File.should_receive(:file?).times.and_return(false)
+
+      Dexter.organize!('.', '.')
     end
   end
 
@@ -48,13 +51,13 @@ describe Dexter do
       subject{Dexter::Matchers::Video}
       describe 'self.allowed?' do
         it "returns true if the file is allowed" do
-          subject.allowed?('hola.avi').should be_true
+          subject.allowed?('dexter s01e01.avi').should be_true
         end
       end
 
       describe 'extension' do
         it "sorts the extension of a file out" do
-          video = subject.new('foo.avi')
+          video = subject.new('dexter s01e01.avi')
           video.extension.should == 'avi'
         end
       end
@@ -67,7 +70,7 @@ describe Dexter do
             'Family.Guy.S10E08.avi' => 'Family Guy'
           }
           examples.each do |key,value|
-            video = subject.new('foo.avi')
+            video = subject.new('dexter s01e01.avi')
             video.stub(:filename).and_return(key)
             video.name.should == value
           end
@@ -82,7 +85,7 @@ describe Dexter do
             'The Show of cleveland - 1x2 .mkv' => 1
           }
           examples.each do |key,value|
-            video = subject.new('foo.avi')
+            video = subject.new('dexter s01e01.avi')
             video.stub(:filename).and_return(key)
             video.season.should == value
           end
@@ -97,7 +100,7 @@ describe Dexter do
             'The Show of cleveland - 1x2 .mkv' => 2
           }
           examples.each do |key,value|
-            video = subject.new('foo.avi')
+            video = subject.new('dexter s01e01.avi')
             video.stub(:filename).and_return(key)
             video.episode.should == value
           end
@@ -105,7 +108,7 @@ describe Dexter do
       end
       describe "output" do
         it "should return the output path of the video" do
-          video = Dexter::Matchers::Video.new('foo.avi')
+          video = Dexter::Matchers::Video.new('dexter s01e01.avi')
           video.should_receive(:season).and_return(1)
           video.should_receive(:episode).and_return(2)
           video.should_receive(:name).and_return("Modern Family")
@@ -115,11 +118,11 @@ describe Dexter do
       end
       describe :organize! do
         it "should move the video to its corresponding path" do
-          video = Dexter::Matchers::Video.new('foo.avi')
+          video = Dexter::Matchers::Video.new('dexter s01e01.avi')
           video.stub(:output).and_return('./Modern Family/S01/Modern Family S01E02.avi')
-          video.stub(:filename).and_return('foo.avi')
+          video.stub(:filename).and_return('dexter s01e01.avi')
           FileUtils.should_receive(:mkdir_p).with('./Modern Family/S01')
-          FileUtils.should_receive(:mv).with('foo.avi','./Modern Family/S01/Modern Family S01E02.avi')
+          FileUtils.should_receive(:mv).with('dexter s01e01.avi','./Modern Family/S01/Modern Family S01E02.avi')
           video.organize!('./')
         end
       end
