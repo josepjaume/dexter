@@ -35,7 +35,7 @@ module Dexter
   end
 
   def self.matchers
-    [Matchers::Video]
+    [Matchers::Video, Matchers::Subtitle]
   end
 
   def self.list_all_files_within_directory(path)
@@ -136,6 +136,9 @@ module Dexter
         return output(path)
       end
 
+    end
+    class Subtitle < Video
+      EXTENSIONS = ['srt', 'sub']
     end
   end
 end

@@ -51,6 +51,7 @@ Feature: Dexter organises series
     And a directory named "Downloads/mess"
     And a directory named "Video"
     And an empty file named "Downloads/dexter s01e09.avi"
+    And an empty file named "Downloads/dexter s01e09.srt"
     And an empty file named "Downloads/Fringe.1x03.HDTV.avi"
     And an empty file named "Downloads/The.big.bang.theory.s01e09.avi"
     And an empty file named "Downloads/mess/MY NAME IS EARL - s08e04 HDTV.avi"
@@ -62,3 +63,5 @@ Feature: Dexter organises series
       | Video/Fringe/S01                 |
       | Video/My Name Is Earl/S08        |
       | Video/Treme/S01                  |
+    And the following files should exist:
+      | Video/Dexter/S01/Dexter S01E09.srt |
