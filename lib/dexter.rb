@@ -4,4 +4,4 @@ module Dexter
   # Your code goes here...
 end
 
-require 'parser'
+require 'dexter/parser'
