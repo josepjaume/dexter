@@ -1,6 +1,5 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-
-require 'rubygems'
-require 'rspec'
-require 'rspec/autorun'
+require 'minitest/spec'
+require 'minitest/autorun'
+require 'minitest/reporters'
+MiniTest::Unit.runner = MiniTest::SuiteRunner.new
+MiniTest::Unit.runner.reporters << MiniTest::Reporters::SpecReporter.new
