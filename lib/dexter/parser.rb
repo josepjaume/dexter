@@ -35,7 +35,9 @@ module Dexter
       ) >> (extension.absent? >> any).repeat >> extension.maybe
     }
 
-    rule(:show_path) { words.as(:show) >> folder_separator }
+    rule(:show_path) {
+      sample_path.absent? >> season_path.absent? >> words.as(:show) >> folder_separator
+    }
     rule(:season_path) {
       (
         season_with_letter | number.as(:season) |
@@ -44,10 +46,10 @@ module Dexter
     }
 
     rule(:sample_path) {
-      stri('sample').as('sample') >> folder_separator
+      stri('sample').as(:sample) >> folder_separator
     }
 
-    rule(:path) { show_path >> season_path.maybe >> sample_path.maybe }
+    rule(:path) { show_path.maybe >> season_path.maybe >> sample_path.maybe }
 
     rule(:file_with_path) do
       path.maybe >> single_file

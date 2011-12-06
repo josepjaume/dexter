@@ -142,6 +142,10 @@ describe "Parser" do
           show: 'Family.Guy', season: '01', episode: '07', resolution: '720',
           extension: 'mkv'
         },
+        'Sample/Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
+          show: 'Family.Guy', season: '01', episode: '07', resolution: '720',
+          extension: 'mkv', sample: 'Sample'
+        },
         'Misfits/S01/1.avi' => {
           show: 'Misfits', season: '01', episode: '1'
         },
