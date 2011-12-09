@@ -127,32 +127,32 @@ describe "Parser" do
     stress =
       {
         'Dexter - S01E02' => {
-          show: 'Dexter', season: '01', episode: '02'
+          show: 'Dexter', season: 1, episode: 2
         },
         'Dexter - 1x02' => {
-          show: 'Dexter', season: '1', episode: '02'
+          show: 'Dexter', season: 1, episode: 2
         },
         'Modern Family - S11E02.mkv' => {
-          show: 'Modern Family', season: '11', episode: '02', extension: 'mkv'
+          show: 'Modern Family', season: 11, episode: 2, extension: 'mkv'
         },
         'Louie/Louie - 1x2.avi' => {
-          show: 'Louie', season: '1', episode: '2', extension: 'avi'
+          show: 'Louie', season: 1, episode: 2, extension: 'avi'
         },
         'Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
-          show: 'Family.Guy', season: '01', episode: '07', resolution: '720',
+          show: 'Family Guy', season: 1, episode: 7, resolution: 720,
           extension: 'mkv'
         },
         'Sample/Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
-          show: 'Family.Guy', season: '01', episode: '07', resolution: '720',
-          extension: 'mkv', sample: 'Sample'
+          show: 'Family Guy', season: 1, episode: 7, resolution: 720,
+          extension: 'mkv', sample: true
         },
         'Misfits/S01/1.avi' => {
-          show: 'Misfits', season: '01', episode: '1'
+          show: 'Misfits', season: 1, episode: 1
         },
         "Monty Python's Flying Circus/Season 3/04 - The bicycle tour.mkv" => {
           show: "Monty Python's Flying Circus",
-          season: '3',
-          episode: '04'
+          season: 3,
+          episode: 4
         }
 
       }
@@ -162,7 +162,7 @@ describe "Parser" do
         matches.each do |key, value|
           it "detects the #{key}" do
             result = subject.parse(string)
-            result[key.to_sym].to_s.must_equal value
+            result[key.to_sym].must_equal value
           end
         end
       end

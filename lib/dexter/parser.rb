@@ -51,10 +51,50 @@ module Dexter
 
     rule(:path) { show_path.maybe >> season_path.maybe >> sample_path.maybe }
 
-    rule(:file_with_path) do
-      path.maybe >> single_file
+    rule(:file) do
+      (path.maybe >> single_file)
     end
 
-    root :file_with_path
+    root :file
+
+    def parse(*args)
+      result = super(*args)
+      Normalizer.new(result).apply
+    end
+
+    class Normalizer < Parslet::Transform
+      def initialize(result)
+        @result = result
+      end
+
+      def apply
+        @result.inject({}) do |result, pair|
+          key, value = pair
+          value = (respond_to?(key)) ? send(key, value) : value
+          result[key] = value
+          result
+        end
+      end
+
+      def episode(episode)
+        Integer(episode)
+      end
+
+      def season(season)
+        Integer(season)
+      end
+
+      def resolution(resolution)
+        Integer(resolution)
+      end
+
+      def show(show)
+        show.to_s.gsub(/[\._-]/, " ").strip
+      end
+
+      def sample(value)
+        value ? true : false
+      end
+    end
   end
 end
