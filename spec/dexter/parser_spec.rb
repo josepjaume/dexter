@@ -153,6 +153,11 @@ describe "Parser" do
           show: "Monty Python's Flying Circus",
           season: 3,
           episode: 4
+        },
+        "Videos/Monty Python's Flying Circus/Season 3/04 - The bicycle tour.mkv" => {
+          show: "Monty Python's Flying Circus",
+          season: 3,
+          episode: 4
         }
 
       }

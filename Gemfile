@@ -8,6 +8,7 @@ group :test do
   gem 'guard-minitest'
   gem 'mocha'
   gem 'minitest-reporters'
+  gem 'fakefs'
 end
 
 group :darwin do

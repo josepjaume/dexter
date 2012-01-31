@@ -12,6 +12,8 @@ module Dexter
     rule(:number) { match('[0-9]').repeat(1) }
     rule(:folder_separator) { match('[\\\\/]')}
     rule(:resolution) { (match('[0-9]').repeat(1).as(:resolution) >> match('[IiPp]')) }
+    rule(:folder){ folder_separator.maybe >> words.repeat(1) >> folder_separator}
+    rule(:folders){ folder.repeat(1) }
 
     rule(:season_with_letter) { stri('s') >> number.as(:season) }
     rule(:episode_with_letter) { stri('e') >> number.as(:episode) }
@@ -49,7 +51,7 @@ module Dexter
       stri('sample').as(:sample) >> folder_separator
     }
 
-    rule(:path) { show_path.maybe >> season_path.maybe >> sample_path.maybe }
+    rule(:path) { show_path.maybe >> season_path.maybe >> sample_path.maybe  }
 
     rule(:file) do
       (path.maybe >> single_file)
