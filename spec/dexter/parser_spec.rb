@@ -84,26 +84,6 @@ describe "Parser" do
       end
     end
 
-    describe "path" do
-      paths = {
-        'Dexter/' => {show: 'Dexter'},
-        'Modern Family/S01/' => {show: 'Modern Family', season: '01'},
-        'Modern Family/5/' => {show: 'Modern Family', season: '5'},
-        'Misfits/Season 2/' => {show: 'Misfits', season: '2'},
-        'True Blood/season1/' => {show: 'True Blood', season: '1'}
-      }
-      paths.each do |path, data|
-        describe path do
-          data.each do |key, value|
-            it "recognises #{key}" do
-              result = subject.path.parse(path)
-              result[key.to_sym].must_equal value
-            end
-          end
-        end
-      end
-    end
-
     describe "resolution" do
       it "recognises 720p" do
         subject.resolution.parse("720p")[:resolution].
@@ -135,31 +115,17 @@ describe "Parser" do
         'Modern Family - S11E02.mkv' => {
           show: 'Modern Family', season: 11, episode: 2, extension: 'mkv'
         },
-        'Louie/Louie - 1x2.avi' => {
+        'Louie - 1x2.avi' => {
           show: 'Louie', season: 1, episode: 2, extension: 'avi'
         },
         'Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
           show: 'Family Guy', season: 1, episode: 7, resolution: 720,
           extension: 'mkv'
         },
-        'Sample/Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
+        'Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
           show: 'Family Guy', season: 1, episode: 7, resolution: 720,
-          extension: 'mkv', sample: true
-        },
-        'Misfits/S01/1.avi' => {
-          show: 'Misfits', season: 1, episode: 1
-        },
-        "Monty Python's Flying Circus/Season 3/04 - The bicycle tour.mkv" => {
-          show: "Monty Python's Flying Circus",
-          season: 3,
-          episode: 4
-        },
-        "Videos/Monty Python's Flying Circus/Season 3/04 - The bicycle tour.mkv" => {
-          show: "Monty Python's Flying Circus",
-          season: 3,
-          episode: 4
+          extension: 'mkv'
         }
-
       }
 
     stress.each do |string, matches|

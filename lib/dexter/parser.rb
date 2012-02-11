@@ -47,11 +47,10 @@ module Dexter
       ) >> folder_separator
     }
 
-    rule(:sample_path) {
-      stri('sample').as(:sample) >> folder_separator
+    rule(:path) {
+      folder_separator.maybe >>
+      (single_file.absent? >> words >> folder_separator).repeat(1)
     }
-
-    rule(:path) { show_path.maybe >> season_path.maybe >> sample_path.maybe  }
 
     rule(:file) do
       (path.maybe >> single_file)

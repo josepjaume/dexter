@@ -19,6 +19,10 @@ module Dexter
         @data[key]
       end
 
+      def sample?
+        !!(@data[:origin] =~ /Sample/)
+      end
+
       def method_missing(m, *args, &block)
         key = m.to_sym
         @data.has_key?(key) ? @data[key] : nil

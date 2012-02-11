@@ -9,7 +9,9 @@ module Dexter
     def report
       result = Parser.new.parse(@data)
       normalizer = Parser::Normalizer.new(result)
-      Episode.new normalizer.apply
+      data = normalizer.apply
+      data.merge!(origin: @data)
+      Episode.new data
     end
   end
 end
