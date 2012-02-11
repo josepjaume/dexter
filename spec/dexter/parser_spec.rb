@@ -118,11 +118,11 @@ describe "Parser" do
         'Louie - 1x2.avi' => {
           show: 'Louie', season: 1, episode: 2, extension: 'avi'
         },
-        'Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
+        'ArbitraryFolder/Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
           show: 'Family Guy', season: 1, episode: 7, resolution: 720,
           extension: 'mkv'
         },
-        'Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
+        'Arbitrary/Folder/Tree/Family.Guy.S01E07.720p.HDTV.X264-DIMENSION.mkv' => {
           show: 'Family Guy', season: 1, episode: 7, resolution: 720,
           extension: 'mkv'
         }
