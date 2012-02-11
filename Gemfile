@@ -1,5 +1,7 @@
 source "http://rubygems.org"
 
+gem 'dexter', path: '.'
+
 # Specify your gem's dependencies in dexter.gemspec
 gemspec
 

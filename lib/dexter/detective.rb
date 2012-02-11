@@ -7,11 +7,18 @@ module Dexter
     end
 
     def report
+      result = parsed
+      result.merge!(origin: @data)
+      Episode.new result
+    end
+
+    def parsed
+      return @parsed if @parsed
       result = Parser.new.parse(@data)
       normalizer = Parser::Normalizer.new(result)
-      data = normalizer.apply
-      data.merge!(origin: @data)
-      Episode.new data
+      @parsed = normalizer.apply
+    rescue
+      raise "Episode not valid"
     end
   end
 end

@@ -6,10 +6,10 @@ require 'fakefs'
 
 describe "Parser" do
   before do
-    @directory = '.'
-    FileUtils.mkdir('FakeDir')
-    File.open('Dexter S01E02.mkv', 'w'){|f| f.write("X")}
-    File.open('FakeDir/Dexter S02E03.mkv', 'w'){|f| f.write("X")}
+    @directory = 'FakeDir'
+    FileUtils.mkdir_p('FakeDir/Inside')
+    File.open('FakeDir/Dexter S01E02.mkv', 'w'){|f| f.write("X")}
+    File.open('FakeDir/Inside/Dexter S02E03.mkv', 'w'){|f| f.write("X")}
   end
 
   after do
@@ -22,8 +22,8 @@ describe "Parser" do
 
   describe "file_list" do
     it "lists all the files" do
-      subject.file_list.must_include File.expand_path('Dexter S01E02.mkv')
-      subject.file_list.must_include File.expand_path('FakeDir/Dexter S02E03.mkv')
+      subject.file_list.must_include File.expand_path('FakeDir/Dexter S01E02.mkv')
+      subject.file_list.must_include File.expand_path('FakeDir/Inside/Dexter S02E03.mkv')
     end
 
     it "doesn't include dirs" do
@@ -42,6 +42,17 @@ describe "Parser" do
   describe "destination_exists?" do
     it "returns false if file destinations doesn't exist" do
       subject.destination_exists?
+    end
+  end
+
+  describe "rename" do
+    it "raises a runtime exception if there's a file with existing destinations" do
+      files = subject.files
+      subject.files[1].stubs(destination_exists?: true)
+      Proc.new{subject.rename}.must_raise RuntimeError
+    end
+    it "returns true if all files can be moved" do
+      subject.rename.must_equal true
     end
   end
 end

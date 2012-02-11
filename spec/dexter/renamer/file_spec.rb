@@ -113,9 +113,9 @@ describe "Parser" do
         subject.stubs(destination: @destination_file)
       end
 
-      it "returns true if the destination already exists and does nothing" do
+      it "raises an exception if the destination already exists and does nothing" do
         File.open(@destination_file, 'w'){|f| f.write("DESTINATION")}
-        subject.rename
+        Proc.new{subject.rename}.must_raise RuntimeError
         File.read(@destination_file).wont_include("ORIGIN")
       end
 

@@ -24,6 +24,20 @@ module Dexter
         @files ||= file_list.map{|f| File.new f}
       end
 
+      def rename(options = {})
+        unless options[:force]
+          files.each do |f|
+            if f.is_episode?
+              raise "\"#{f.destination}\" already exists" if f.destination_exists?
+            end
+          end
+        end
+        files.each do |f|
+          f.rename(force: options[:force]) if f.is_episode?
+        end
+        true
+      end
+
       def destination_exists?
         files.any?(&:destination_exists?)
       end

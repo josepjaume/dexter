@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'dexter'
+
+Dexter.config.basedir = (ARGV[1] || '.')
+
+Dexter::Renamer::Directory.new(ARGV[0] || '.').rename

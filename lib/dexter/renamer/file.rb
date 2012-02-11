@@ -31,19 +31,24 @@ module Dexter
         ::FileUtils.mkdir_p(destination_directory) unless ::File.exists?(destination_directory)
       end
 
+      def is_episode?
+        !!episode
+      end
+
       def destination
         ::File.join(basedir, destination_filename)
       end
 
       def episode
-        @episode ||= Detective.new(@filename).report
+        @episode ||= Detective.new(@filename).report rescue nil
       end
 
       def rename(options = {})
-        options[:force] ||= Dexter.config.force_rename
-        return false if destination_exists? && !options[:force]
+        raise "\"#{destination}\" already exists" if destination_exists? && !options[:force]
         create_dir
+        puts "Renaming: #{filename}"
         ::File.rename(filename, destination)
+        puts " - Renamed: #{destination}"
       end
 
       def destination_exists?
